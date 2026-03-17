@@ -135,14 +135,12 @@ table.main-table{width:100%;border-collapse:collapse;font-size:13px;}
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-overlay hidden" id="loading-overlay">
   <div class="spinner"></div>
-  <div class="loading-text" id="loading-text">Fetching 2025 live data...</div>
+  <div class="loading-text" id="loading-text">Fetching Live Data...</div>
   <div class="loading-sub" id="loading-sub">Connecting to Google Sheets</div>
 </div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-text">⚡ OMNIGRID</div>
@@ -160,16 +158,15 @@ table.main-table{width:100%;border-collapse:collapse;font-size:13px;}
   <div class="sidebar-footer" id="sidebar-footer">Loading...</div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
   <header class="topbar">
     <div><div class="page-title" id="page-title">Overview</div></div>
     <div class="topbar-right">
       <div class="year-toggle">
-        <button class="year-btn active" id="btn-2024" onclick="switchYear(2024)">2024</button>
-        <button class="year-btn" id="btn-2025" onclick="switchYear(2025)">2025 Live</button>
+        <button class="year-btn active" id="btn-fy25" onclick="switchYear('fy25')">Apr 2025 - Mar 2026</button>
+        <button class="year-btn" id="btn-fy26" onclick="switchYear('fy26')">Apr 2026 - Mar 2027</button>
       </div>
-      <span id="live-badge" style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--green-l);color:var(--green);font-weight:600;display:none;">● LIVE</span>
+      <span id="live-badge" style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--green-l);color:var(--green);font-weight:600;">● LIVE</span>
       <span id="last-updated" style="font-size:11px;color:var(--text3);"></span>
     </div>
   </header>
@@ -178,7 +175,6 @@ table.main-table{width:100%;border-collapse:collapse;font-size:13px;}
 
   <main class="content">
 
-    <!-- OVERVIEW -->
     <div id="page-overview" class="page active">
       <div class="metric-grid" id="ov-metrics"></div>
       <div class="two-col">
@@ -189,11 +185,8 @@ table.main-table{width:100%;border-collapse:collapse;font-size:13px;}
         <div class="card"><div class="card-header"><div><div class="card-title">Top 10 — Avg Productivity</div></div></div><div id="prod10-bars"></div></div>
         <div class="card"><div class="card-header"><div><div class="card-title">Team Efficiency — Monthly</div></div></div><div style="position:relative;height:220px;"><canvas id="efficiencyLine"></canvas></div></div>
       </div>
-    // Replace the URL inside the quotes with your new published CSV link
-const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pub?output=csv';
     </div>
 
-    <!-- TEAM -->
     <div id="page-team" class="page">
       <div class="controls">
         <input class="search-input" id="team-search" placeholder="🔍  Search employee..." oninput="filterTeamTable()">
@@ -212,7 +205,6 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
       <div class="card"><div class="tbl-wrap"><table class="main-table"><thead><tr><th>Employee</th><th>Total Hours</th><th>Avg Productivity</th><th>Present</th><th>Absent</th><th>Att. Rate</th><th>Status</th><th>Profile</th></tr></thead><tbody id="team-tbody"></tbody></table></div></div>
     </div>
 
-    <!-- SUBJECTS -->
     <div id="page-subjects" class="page">
       <div class="subject-grid" id="subject-cards"></div>
       <div class="card" id="subject-detail-card" style="display:none;">
@@ -221,7 +213,6 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
       </div>
     </div>
 
-    <!-- TRENDS -->
     <div id="page-trends" class="page">
       <div class="metric-grid" id="trend-metrics"></div>
       <div class="card">
@@ -238,7 +229,6 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
       <div class="card"><div class="card-header"><div class="card-title">Weekly Efficiency Trend</div></div><div style="position:relative;height:260px;"><canvas id="weeklyProdChart"></canvas></div></div>
     </div>
 
-    <!-- ATTENDANCE -->
     <div id="page-attendance" class="page">
       <div class="metric-grid" id="att-metrics"></div>
       <div class="two-col">
@@ -247,7 +237,6 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
       </div>
     </div>
 
-    <!-- MEMBERS -->
     <div id="page-members" class="page">
       <div class="controls">
         <input class="search-input" id="mem-search" placeholder="🔍  Search member..." oninput="filterMembers()" style="width:240px;">
@@ -266,7 +255,6 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
       </div>
       <div id="members-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;"></div>
 
-      <!-- MEMBER PROFILE -->
       <div id="member-profile" style="display:none;">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
           <button class="sort-btn" onclick="backToGrid()">← All Members</button>
@@ -336,11 +324,11 @@ const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/YOUR_NEW_LINK_HERE/pu
 // ============================================================
 // CONFIG
 // ============================================================
-const CSV_2025 = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTXll3TIQDWojarCfGTUHfM55RqSj8V41N68UpHmsw_2H08pOavdx4RvVPSTZJgPrD9UFpom4FC05VG/pub?output=csv';
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTXll3TIQDWojarCfGTUHfM55RqSj8V41N68UpHmsw_2H08pOavdx4RvVPSTZJgPrD9UFpom4FC05VG/pub?output=csv';
 
 const SUBJECT_MAP = {
   'himaal sharma':'Physics','roshan mall':'Physics','saurabh shukla':'Physics','aditi gupta':'Physics','viveka jangra':'Physics','mohit saraswat':'Physics','shubhashree khuntia':'Physics','agneshwar chauhan':'Physics',
-  'shivam dwivedi':'Chemistry','leena raswant':'Chemistry','tarun shekhawat':'Chemistry','suresh khanwani':'Chemistry','suresh khanwani':'Chemistry','vishal sharma':'Chemistry','piyush sain':'Chemistry','priyanka pandey':'Chemistry','aman thakur':'Chemistry',
+  'shivam dwivedi':'Chemistry','leena raswant':'Chemistry','tarun shekhawat':'Chemistry','suresh khanwani':'Chemistry','vishal sharma':'Chemistry','piyush sain':'Chemistry','priyanka pandey':'Chemistry','aman thakur':'Chemistry',
   'shweta bhardwaj':'Biology','patibandla srinija':'Biology','shikhar kaushik':'Biology','nidhi antil':'Biology','nighat wadood':'Biology','shashwat dwivedi':'Biology','sonika singh':'Biology',
   'vishnu bansal':'Maths','charul jain':'Maths','atul singh':'Maths','anjani kumar':'Maths','aman kesharwani':'Maths','vishal hansrajni':'Maths','manish mishra':'Maths','maneesh mamgai':'Maths','balkrishnana upadhyay':'Maths','ashok kumar injarapu':'Maths','minal rathore':'Maths','ankur jain':'Maths',
   'shivani':'English','ekta ramrakhyani':'English','halima bee':'English','richa tripathi':'English','ritesh singh':'English',
@@ -349,28 +337,16 @@ const SUBJECT_MAP = {
   'mohd. aurangazeb':'MAT'
 };
 
-const MONTHS_2024 = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const MONTHS_2025 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-// ============================================================
-// 2024 EMBEDDED DATA
-// ============================================================
-const EMP_2024 = [{"name":"Viveka Jangra","subject":"Physics","hours":1246.8,"present":143,"absent":3,"holiday":5,"days":151,"prod":117.1,"att":94.7,"monthly":{"Apr":{"h":0,"p":0},"May":{"h":0,"p":0},"Jun":{"h":0,"p":0},"Jul":{"h":114.7,"p":80.5},"Aug":{"h":280.2,"p":138.4},"Sep":{"h":151.8,"p":81.0},"Oct":{"h":224.4,"p":106.8},"Nov":{"h":198.9,"p":102.0},"Dec":{"h":276.9,"p":142.0}},"weekly":{"28":{"h":29.3,"p":97.7},"29":{"h":20.3,"p":45.1},"30":{"h":42.2,"p":93.7},"31":{"h":38.7,"p":85.9},"32":{"h":70.8,"p":157.3},"33":{"h":65.3,"p":145.2},"34":{"h":67.2,"p":149.3},"35":{"h":61.2,"p":135.9},"36":{"h":39.1,"p":86.9},"37":{"h":52.2,"p":115.9},"38":{"h":25.6,"p":57.0},"39":{"h":29.9,"p":66.4},"40":{"h":23.5,"p":52.1},"41":{"h":45.3,"p":86.4},"42":{"h":56.4,"p":125.2},"43":{"h":60.6,"p":134.7},"44":{"h":43.6,"p":96.8},"45":{"h":36.7,"p":81.5},"46":{"h":29.3,"p":65.0},"47":{"h":62.3,"p":138.4},"48":{"h":70.7,"p":157.1},"49":{"h":63.9,"p":142.1},"50":{"h":54.5,"p":121.1},"51":{"h":63.5,"p":141.1},"52":{"h":69.6,"p":154.8},"53":{"h":25.3,"p":168.6}}},{"name":"Nidhi Antil","subject":"Biology","hours":1185.9,"present":207,"absent":5,"holiday":5,"days":217,"prod":78.7,"att":95.4,"monthly":{"Apr":{"h":2.8,"p":6.2},"May":{"h":44.2,"p":21.8},"Jun":{"h":71.2,"p":38.0},"Jul":{"h":127.4,"p":62.9},"Aug":{"h":111.6,"p":55.1},"Sep":{"h":150.5,"p":80.3},"Oct":{"h":243.5,"p":115.9},"Nov":{"h":191.9,"p":98.4},"Dec":{"h":242.8,"p":124.5}}},{"name":"Leena Raswant","subject":"Chemistry","hours":1086.0,"present":198,"absent":12,"holiday":7,"days":217,"prod":78.3,"att":91.2,"monthly":{"Apr":{"h":0.2,"p":0.4},"May":{"h":45.5,"p":22.5},"Jun":{"h":68.9,"p":36.7},"Jul":{"h":127.4,"p":62.9},"Aug":{"h":155.8,"p":77.0},"Sep":{"h":151.7,"p":80.9},"Oct":{"h":167.4,"p":79.7},"Nov":{"h":159.2,"p":81.6},"Dec":{"h":210.0,"p":107.7}}},{"name":"Tarun Shekhawat","subject":"Chemistry","hours":1051.5,"present":189,"absent":21,"holiday":7,"days":217,"prod":83.5,"att":87.1,"monthly":{"Apr":{"h":5.7,"p":12.6},"May":{"h":85.3,"p":42.1},"Jun":{"h":56.8,"p":30.3},"Jul":{"h":71.5,"p":35.3},"Aug":{"h":95.5,"p":47.2},"Sep":{"h":153.2,"p":81.7},"Oct":{"h":143.1,"p":68.2},"Nov":{"h":248.1,"p":127.3},"Dec":{"h":192.3,"p":98.6}}},{"name":"Mohd. Aurangazeb","subject":"MAT","hours":1044.4,"present":199,"absent":11,"holiday":7,"days":217,"prod":80.0,"att":91.7,"monthly":{"Apr":{"h":0,"p":0},"May":{"h":37.8,"p":18.7},"Jun":{"h":68.5,"p":36.5},"Jul":{"h":125.6,"p":62.0},"Aug":{"h":149.7,"p":73.9},"Sep":{"h":125.2,"p":66.8},"Oct":{"h":189.2,"p":90.1},"Nov":{"h":159.8,"p":82.0},"Dec":{"h":188.6,"p":96.7}}},{"name":"Ritesh Singh","subject":"English","hours":956.5,"present":172,"absent":2,"holiday":6,"days":180,"prod":81.8,"att":95.6,"monthly":{"Sep":{"h":133.5,"p":71.2},"Oct":{"h":193.2,"p":92.0},"Nov":{"h":324.0,"p":166.2},"Dec":{"h":305.8,"p":156.9}}},{"name":"Richa Tripathi","subject":"English","hours":928.4,"present":195,"absent":15,"holiday":7,"days":217,"prod":76.4,"att":89.9,"monthly":{"Apr":{"h":0,"p":0},"May":{"h":36.2,"p":17.9},"Jun":{"h":61.5,"p":32.8},"Jul":{"h":114.0,"p":56.3},"Aug":{"h":121.2,"p":59.8},"Sep":{"h":126.5,"p":67.5},"Oct":{"h":178.0,"p":84.8},"Nov":{"h":125.0,"p":64.1},"Dec":{"h":166.0,"p":85.1}}},{"name":"Arjun Kaushik","subject":"SST","hours":913.8,"present":202,"absent":9,"holiday":6,"days":217,"prod":73.0,"att":93.1,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":62.5,"p":30.8},"Jun":{"h":79.3,"p":42.3},"Jul":{"h":106.5,"p":52.6},"Aug":{"h":116.5,"p":57.5},"Sep":{"h":131.0,"p":69.9},"Oct":{"h":163.5,"p":77.9},"Nov":{"h":103.5,"p":53.1},"Dec":{"h":150.5,"p":77.2}}},{"name":"Deepak Tripathi","subject":"SST","hours":893.0,"present":192,"absent":17,"holiday":7,"days":217,"prod":76.3,"att":88.5,"monthly":{"Apr":{"h":4.2,"p":9.3},"May":{"h":71.0,"p":35.1},"Jun":{"h":84.0,"p":44.8},"Jul":{"h":107.0,"p":52.8},"Aug":{"h":98.5,"p":48.6},"Sep":{"h":131.0,"p":69.9},"Oct":{"h":152.3,"p":72.5},"Nov":{"h":113.0,"p":57.9},"Dec":{"h":132.0,"p":67.7}}},{"name":"Charul Jain","subject":"Maths","hours":888.1,"present":196,"absent":14,"holiday":7,"days":217,"prod":63.3,"att":90.3,"monthly":{"May":{"h":58.5,"p":28.9},"Jun":{"h":71.5,"p":38.1},"Jul":{"h":116.6,"p":57.5},"Aug":{"h":101.5,"p":50.1},"Sep":{"h":118.0,"p":62.9},"Oct":{"h":162.0,"p":77.1},"Nov":{"h":125.0,"p":64.1},"Dec":{"h":135.0,"p":69.2}}},{"name":"Roshan mall","subject":"Physics","hours":870.7,"present":200,"absent":11,"holiday":6,"days":217,"prod":62.4,"att":92.2,"monthly":{"Apr":{"h":4.5,"p":10.1},"May":{"h":62.0,"p":30.6},"Jun":{"h":72.2,"p":38.5},"Jul":{"h":108.5,"p":53.5},"Aug":{"h":107.5,"p":53.1},"Sep":{"h":126.5,"p":67.5},"Oct":{"h":138.5,"p":66.0},"Nov":{"h":126.5,"p":64.9},"Dec":{"h":124.5,"p":63.8}}},{"name":"Anjani Kumar","subject":"Maths","hours":869.0,"present":199,"absent":12,"holiday":6,"days":217,"prod":63.3,"att":91.7,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":64.5,"p":31.8},"Jun":{"h":68.5,"p":36.5},"Jul":{"h":108.0,"p":53.3},"Aug":{"h":100.5,"p":49.6},"Sep":{"h":122.5,"p":65.3},"Oct":{"h":155.5,"p":74.1},"Nov":{"h":115.5,"p":59.2},"Dec":{"h":134.0,"p":68.7}}},{"name":"Aman Thakur","subject":"Chemistry","hours":867.1,"present":196,"absent":13,"holiday":8,"days":217,"prod":70.9,"att":90.3,"monthly":{"Apr":{"h":3.8,"p":8.5},"May":{"h":81.5,"p":40.2},"Jun":{"h":78.8,"p":42.0},"Jul":{"h":109.0,"p":53.8},"Aug":{"h":105.0,"p":51.8},"Sep":{"h":116.5,"p":62.1},"Oct":{"h":138.5,"p":66.0},"Nov":{"h":103.0,"p":52.8},"Dec":{"h":131.0,"p":67.2}}},{"name":"Saurabh Shukla","subject":"Physics","hours":842.6,"present":171,"absent":17,"holiday":6,"days":194,"prod":68.9,"att":88.1,"monthly":{"Jul":{"h":97.6,"p":48.2},"Aug":{"h":98.6,"p":48.7},"Sep":{"h":119.4,"p":63.7},"Oct":{"h":170.5,"p":81.2},"Nov":{"h":171.5,"p":87.9},"Dec":{"h":185.0,"p":94.9}}},{"name":"Balkrishnana Upadhyay","subject":"Maths","hours":822.4,"present":199,"absent":11,"holiday":7,"days":217,"prod":65.7,"att":91.7,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":55.0,"p":27.2},"Jun":{"h":72.4,"p":38.6},"Jul":{"h":101.5,"p":50.1},"Aug":{"h":95.5,"p":47.2},"Sep":{"h":121.0,"p":64.5},"Oct":{"h":153.5,"p":73.1},"Nov":{"h":108.5,"p":55.6},"Dec":{"h":115.0,"p":59.0}}},{"name":"Rohit Patidar","subject":"Hindi Medium","hours":809.1,"present":85,"absent":3,"holiday":4,"days":92,"prod":126.9,"att":92.4,"monthly":{"Oct":{"h":251.1,"p":119.6},"Nov":{"h":258.0,"p":132.3},"Dec":{"h":300.0,"p":153.8}}},{"name":"Himaal sharma","subject":"Physics","hours":800.9,"present":193,"absent":17,"holiday":7,"days":217,"prod":62.1,"att":88.9,"monthly":{"Apr":{"h":5.0,"p":11.1},"May":{"h":62.5,"p":30.8},"Jun":{"h":68.5,"p":36.5},"Jul":{"h":100.4,"p":49.5},"Aug":{"h":93.5,"p":46.2},"Sep":{"h":108.5,"p":57.9},"Oct":{"h":143.5,"p":68.3},"Nov":{"h":107.5,"p":55.1},"Dec":{"h":111.5,"p":57.2}}},{"name":"Ankit Malviya","subject":"SST","hours":780.2,"present":96,"absent":1,"holiday":4,"days":101,"prod":108.4,"att":95.0,"monthly":{"Dec":{"h":780.2,"p":400.0}}},{"name":"Vishal Sharma","subject":"Chemistry","hours":774.6,"present":142,"absent":3,"holiday":6,"days":151,"prod":73.8,"att":94.0,"monthly":{"Jul":{"h":100.1,"p":49.4},"Aug":{"h":124.5,"p":61.5},"Sep":{"h":110.5,"p":59.0},"Oct":{"h":145.5,"p":69.3},"Nov":{"h":128.0,"p":65.6},"Dec":{"h":166.0,"p":85.1}}},{"name":"Ashok Kumar Injarapu","subject":"Maths","hours":753.4,"present":197,"absent":13,"holiday":7,"days":217,"prod":55.2,"att":90.8,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":55.0,"p":27.2},"Jun":{"h":62.4,"p":33.3},"Jul":{"h":91.0,"p":44.9},"Aug":{"h":88.0,"p":43.4},"Sep":{"h":107.5,"p":57.3},"Oct":{"h":145.0,"p":69.1},"Nov":{"h":99.5,"p":51.0},"Dec":{"h":105.0,"p":53.8}}},{"name":"Piyush Sain","subject":"Chemistry","hours":740.0,"present":190,"absent":20,"holiday":7,"days":217,"prod":58.0,"att":87.6,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":60.0,"p":29.6},"Jun":{"h":65.0,"p":34.7},"Jul":{"h":95.0,"p":46.9},"Aug":{"h":88.0,"p":43.4},"Sep":{"h":109.5,"p":58.4},"Oct":{"h":130.0,"p":61.9},"Nov":{"h":96.5,"p":49.5},"Dec":{"h":95.5,"p":49.0}}},{"name":"Shweta Bhardwaj","subject":"Biology","hours":735.5,"present":185,"absent":18,"holiday":7,"days":210,"prod":60.2,"att":88.1,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":56.0,"p":27.6},"Jun":{"h":63.5,"p":33.9},"Jul":{"h":91.5,"p":45.2},"Aug":{"h":91.0,"p":44.9},"Sep":{"h":107.5,"p":57.3},"Oct":{"h":140.5,"p":66.9},"Nov":{"h":91.5,"p":46.9},"Dec":{"h":93.5,"p":47.9}}},{"name":"Atul Singh","subject":"Maths","hours":698.0,"present":178,"absent":14,"holiday":6,"days":198,"prod":59.8,"att":89.9,"monthly":{"May":{"h":48.0,"p":23.7},"Jun":{"h":59.0,"p":31.5},"Jul":{"h":88.5,"p":43.7},"Aug":{"h":84.5,"p":41.7},"Sep":{"h":103.5,"p":55.2},"Oct":{"h":132.0,"p":62.9},"Nov":{"h":89.5,"p":45.9},"Dec":{"h":93.0,"p":47.7}}},{"name":"Vishnu Bansal","subject":"Maths","hours":685.2,"present":175,"absent":15,"holiday":6,"days":196,"prod":57.3,"att":89.3,"monthly":{"May":{"h":48.0,"p":23.7},"Jun":{"h":58.2,"p":31.0},"Jul":{"h":86.5,"p":42.7},"Aug":{"h":80.5,"p":39.7},"Sep":{"h":100.5,"p":53.6},"Oct":{"h":130.0,"p":61.9},"Nov":{"h":86.5,"p":44.3},"Dec":{"h":95.0,"p":48.7}}},{"name":"Aditi Gupta","subject":"Physics","hours":672.0,"present":172,"absent":16,"holiday":6,"days":194,"prod":56.1,"att":88.7,"monthly":{"Jul":{"h":92.0,"p":45.4},"Aug":{"h":82.5,"p":40.7},"Sep":{"h":97.5,"p":52.0},"Oct":{"h":128.5,"p":61.2},"Nov":{"h":136.5,"p":70.0},"Dec":{"h":135.0,"p":69.2}}},{"name":"Shikhar Kaushik","subject":"Biology","hours":660.5,"present":170,"absent":18,"holiday":7,"days":195,"prod":55.8,"att":87.2,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":53.0,"p":26.2},"Jun":{"h":58.5,"p":31.2},"Jul":{"h":83.5,"p":41.2},"Aug":{"h":79.0,"p":39.0},"Sep":{"h":98.5,"p":52.6},"Oct":{"h":125.5,"p":59.8},"Nov":{"h":86.5,"p":44.3},"Dec":{"h":75.5,"p":38.7}}},{"name":"Aman Kesharwani","subject":"Maths","hours":645.0,"present":168,"absent":17,"holiday":6,"days":191,"prod":54.9,"att":88.0,"monthly":{"May":{"h":48.5,"p":23.9},"Jun":{"h":55.5,"p":29.6},"Jul":{"h":81.5,"p":40.2},"Aug":{"h":76.0,"p":37.5},"Sep":{"h":96.0,"p":51.2},"Oct":{"h":121.5,"p":57.9},"Nov":{"h":84.5,"p":43.3},"Dec":{"h":81.5,"p":41.8}}},{"name":"Ekta Ramrakhyani","subject":"English","hours":632.0,"present":165,"absent":19,"holiday":7,"days":191,"prod":53.2,"att":86.4,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":50.5,"p":24.9},"Jun":{"h":56.0,"p":29.9},"Jul":{"h":80.0,"p":39.5},"Aug":{"h":76.5,"p":37.8},"Sep":{"h":94.5,"p":50.4},"Oct":{"h":115.0,"p":54.8},"Nov":{"h":82.0,"p":42.0},"Dec":{"h":77.0,"p":39.5}}},{"name":"Shashwat Dwivedi","subject":"Biology","hours":618.0,"present":162,"absent":20,"holiday":6,"days":188,"prod":52.8,"att":86.2,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":50.0,"p":24.7},"Jun":{"h":54.5,"p":29.1},"Jul":{"h":78.5,"p":38.7},"Aug":{"h":74.0,"p":36.5},"Sep":{"h":91.0,"p":48.6},"Oct":{"h":113.5,"p":54.1},"Nov":{"h":78.5,"p":40.2},"Dec":{"h":77.5,"p":39.7}}},{"name":"Halima Bee","subject":"English","hours":605.0,"present":160,"absent":18,"holiday":6,"days":184,"prod":51.5,"att":87.0,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":50.0,"p":24.7},"Jun":{"h":53.5,"p":28.5},"Jul":{"h":77.0,"p":38.0},"Aug":{"h":73.5,"p":36.3},"Sep":{"h":89.0,"p":47.5},"Oct":{"h":110.5,"p":52.6},"Nov":{"h":76.5,"p":39.2},"Dec":{"h":75.5,"p":38.7}}},{"name":"Priyanka Pandey","subject":"Chemistry","hours":575.5,"present":150,"absent":18,"holiday":6,"days":174,"prod":49.8,"att":86.2,"monthly":{"Jul":{"h":75.5,"p":37.3},"Aug":{"h":72.0,"p":35.5},"Sep":{"h":85.0,"p":45.4},"Oct":{"h":107.5,"p":51.2},"Nov":{"h":113.5,"p":58.2},"Dec":{"h":122.0,"p":62.6}}},{"name":"Patibandla Srinija","subject":"Biology","hours":560.0,"present":148,"absent":17,"holiday":5,"days":170,"prod":48.5,"att":87.1,"monthly":{"Jul":{"h":70.0,"p":34.6},"Aug":{"h":68.5,"p":33.8},"Sep":{"h":83.0,"p":44.3},"Oct":{"h":105.5,"p":50.3},"Nov":{"h":114.5,"p":58.7},"Dec":{"h":118.5,"p":60.8}}},{"name":"Maneesh Mamgai","subject":"Maths","hours":545.0,"present":145,"absent":18,"holiday":5,"days":168,"prod":47.2,"att":86.3,"monthly":{"May":{"h":45.5,"p":22.5},"Jun":{"h":50.0,"p":26.7},"Jul":{"h":71.0,"p":35.1},"Aug":{"h":66.5,"p":32.8},"Sep":{"h":82.5,"p":44.0},"Oct":{"h":102.5,"p":48.8},"Nov":{"h":70.0,"p":35.9},"Dec":{"h":57.0,"p":29.2}}},{"name":"Sonika Singh","subject":"Biology","hours":530.0,"present":140,"absent":20,"holiday":6,"days":166,"prod":46.0,"att":84.3,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":44.0,"p":21.7},"Jun":{"h":48.0,"p":25.6},"Jul":{"h":68.0,"p":33.6},"Aug":{"h":64.5,"p":31.8},"Sep":{"h":79.5,"p":42.4},"Oct":{"h":99.0,"p":47.2},"Nov":{"h":63.5,"p":32.6},"Dec":{"h":63.0,"p":32.3}}},{"name":"Manish Mishra","subject":"Maths","hours":515.0,"present":135,"absent":19,"holiday":5,"days":159,"prod":44.8,"att":84.9,"monthly":{"May":{"h":42.5,"p":21.0},"Jun":{"h":46.5,"p":24.8},"Jul":{"h":65.5,"p":32.3},"Aug":{"h":62.5,"p":30.8},"Sep":{"h":78.0,"p":41.6},"Oct":{"h":96.5,"p":46.0},"Nov":{"h":62.0,"p":31.8},"Dec":{"h":61.5,"p":31.5}}},{"name":"Shivam Dwivedi","subject":"Chemistry","hours":500.0,"present":130,"absent":20,"holiday":5,"days":155,"prod":43.5,"att":83.9,"monthly":{"May":{"h":41.5,"p":20.5},"Jun":{"h":45.0,"p":24.0},"Jul":{"h":63.5,"p":31.4},"Aug":{"h":60.0,"p":29.6},"Sep":{"h":76.0,"p":40.5},"Oct":{"h":94.0,"p":44.8},"Nov":{"h":60.0,"p":30.8},"Dec":{"h":60.0,"p":30.8}}},{"name":"Indra Vikram Tiwari","subject":"SST","hours":485.0,"present":125,"absent":20,"holiday":5,"days":150,"prod":42.2,"att":83.3,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":40.5,"p":20.0},"Jun":{"h":44.5,"p":23.7},"Jul":{"h":62.0,"p":30.6},"Aug":{"h":58.5,"p":28.9},"Sep":{"h":73.5,"p":39.2},"Oct":{"h":92.5,"p":44.1},"Nov":{"h":58.5,"p":30.0},"Dec":{"h":55.0,"p":28.2}}},{"name":"Shivani","subject":"English","hours":468.0,"present":120,"absent":21,"holiday":5,"days":146,"prod":40.8,"att":82.2,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":39.0,"p":19.3},"Jun":{"h":43.0,"p":22.9},"Jul":{"h":60.5,"p":29.9},"Aug":{"h":57.0,"p":28.1},"Sep":{"h":71.0,"p":37.9},"Oct":{"h":89.5,"p":42.6},"Nov":{"h":55.5,"p":28.5},"Dec":{"h":52.0,"p":26.7}}},{"name":"Mohit Saraswat","subject":"Physics","hours":450.0,"present":115,"absent":22,"holiday":4,"days":141,"prod":39.5,"att":81.6,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":37.5,"p":18.5},"Jun":{"h":42.0,"p":22.4},"Jul":{"h":59.0,"p":29.2},"Aug":{"h":56.5,"p":27.9},"Sep":{"h":69.5,"p":37.1},"Oct":{"h":88.0,"p":41.9},"Nov":{"h":50.5,"p":25.9},"Dec":{"h":47.5,"p":24.4}}},{"name":"Vishal Hansrajni","subject":"Maths","hours":432.0,"present":110,"absent":22,"holiday":4,"days":136,"prod":38.2,"att":80.9,"monthly":{"May":{"h":36.5,"p":18.0},"Jun":{"h":40.0,"p":21.3},"Jul":{"h":56.5,"p":27.9},"Aug":{"h":54.0,"p":26.6},"Sep":{"h":66.5,"p":35.5},"Oct":{"h":85.5,"p":40.7},"Nov":{"h":48.5,"p":24.9},"Dec":{"h":45.0,"p":23.1}}},{"name":"Ankur Jain","subject":"Maths","hours":410.0,"present":105,"absent":23,"holiday":4,"days":132,"prod":37.0,"att":79.5,"monthly":{"May":{"h":35.0,"p":17.3},"Jun":{"h":38.5,"p":20.5},"Jul":{"h":54.0,"p":26.7},"Aug":{"h":51.5,"p":25.4},"Sep":{"h":64.0,"p":34.1},"Oct":{"h":82.0,"p":39.0},"Nov":{"h":45.5,"p":23.3},"Dec":{"h":39.5,"p":20.2}}},{"name":"Nighat Wadood","subject":"Biology","hours":395.0,"present":100,"absent":20,"holiday":5,"days":125,"prod":36.0,"att":80.0,"monthly":{"May":{"h":33.0,"p":16.3},"Jun":{"h":36.5,"p":19.5},"Jul":{"h":51.5,"p":25.4},"Aug":{"h":49.5,"p":24.4},"Sep":{"h":61.0,"p":32.5},"Oct":{"h":79.5,"p":37.9},"Nov":{"h":42.5,"p":21.8},"Dec":{"h":42.0,"p":21.5}}},{"name":"Baishnab Padhee","subject":"SST","hours":380.0,"present":95,"absent":19,"holiday":4,"days":118,"prod":35.0,"att":80.5,"monthly":{"Apr":{"h":0.5,"p":1.2},"May":{"h":31.5,"p":15.6},"Jun":{"h":35.0,"p":18.7},"Jul":{"h":49.5,"p":24.4},"Aug":{"h":47.5,"p":23.4},"Sep":{"h":59.0,"p":31.5},"Oct":{"h":78.0,"p":37.2},"Nov":{"h":39.0,"p":20.0},"Dec":{"h":40.0,"p":20.5}}},{"name":"Minal Rathore","subject":"Maths","hours":350.0,"present":90,"absent":18,"holiday":4,"days":112,"prod":34.5,"att":80.4,"monthly":{"May":{"h":29.5,"p":14.6},"Jun":{"h":33.0,"p":17.6},"Jul":{"h":46.5,"p":23.0},"Aug":{"h":45.0,"p":22.2},"Sep":{"h":56.5,"p":30.1},"Oct":{"h":75.5,"p":36.0},"Nov":{"h":33.5,"p":17.2},"Dec":{"h":31.0,"p":15.9}}},{"name":"Suresh Khanwani","subject":"Chemistry","hours":340.0,"present":88,"absent":16,"holiday":4,"days":108,"prod":33.5,"att":81.5,"monthly":{"May":{"h":28.5,"p":14.1},"Jun":{"h":32.0,"p":17.1},"Jul":{"h":45.0,"p":22.2},"Aug":{"h":43.5,"p":21.5},"Sep":{"h":55.0,"p":29.3},"Oct":{"h":73.5,"p":35.0},"Nov":{"h":31.5,"p":16.2},"Dec":{"h":31.0,"p":15.9}}},{"name":"Agneshwar Chauhan","subject":"Physics","hours":327.0,"present":83,"absent":17,"holiday":3,"days":103,"prod":32.5,"att":80.6,"monthly":{"May":{"h":27.0,"p":13.4},"Jun":{"h":30.5,"p":16.3},"Jul":{"h":43.0,"p":21.2},"Aug":{"h":41.5,"p":20.5},"Sep":{"h":53.0,"p":28.3},"Oct":{"h":71.0,"p":33.8},"Nov":{"h":31.0,"p":15.9},"Dec":{"h":30.0,"p":15.4}}},{"name":"Shubhashree Khuntia","subject":"Physics","hours":310.0,"present":80,"absent":16,"holiday":3,"days":99,"prod":31.5,"att":80.8,"monthly":{"May":{"h":26.0,"p":12.8},"Jun":{"h":29.0,"p":15.5},"Jul":{"h":41.0,"p":20.2},"Aug":{"h":40.0,"p":19.7},"Sep":{"h":50.5,"p":26.9},"Oct":{"h":68.5,"p":32.6},"Nov":{"h":28.0,"p":14.4},"Dec":{"h":27.0,"p":13.8}}}];
-
-const MONTHLY_TEAM_2024 = {"Apr":{"h":146.6,"p":16.4},"May":{"h":1415.2,"p":28.0},"Jun":{"h":1571.3,"p":34.4},"Jul":{"h":2658.8,"p":44.4},"Aug":{"h":2922.6,"p":45.4},"Sep":{"h":3842.5,"p":58.4},"Oct":{"h":4708.9,"p":60.6},"Nov":{"h":4827.2,"p":67.7},"Dec":{"h":5603.0,"p":79.8}};
-const WEEKLY_TEAM_2024 = {"17":{"h":75.9,"p":16.0},"18":{"h":210.0,"p":22.5},"19":{"h":380.4,"p":36.8},"20":{"h":402.3,"p":35.8},"21":{"h":355.8,"p":33.1},"22":{"h":194.8,"p":20.6},"23":{"h":411.3,"p":39.7},"24":{"h":351.2,"p":45.9},"25":{"h":389.9,"p":36.1},"26":{"h":361.4,"p":32.1},"27":{"h":360.3,"p":31.8},"28":{"h":635.1,"p":53.4},"29":{"h":689.8,"p":49.5},"30":{"h":591.8,"p":43.8},"31":{"h":696.9,"p":50.0},"32":{"h":702.5,"p":50.2},"33":{"h":590.5,"p":41.0},"34":{"h":636.6,"p":47.2},"35":{"h":677.4,"p":51.9},"36":{"h":684.0,"p":51.8},"37":{"h":859.9,"p":58.0},"38":{"h":1046.2,"p":63.3},"39":{"h":1049.1,"p":63.0},"40":{"h":1019.2,"p":61.2},"41":{"h":1150.4,"p":60.9},"42":{"h":1132.2,"p":68.0},"43":{"h":1242.5,"p":74.6},"44":{"h":368.0,"p":24.8},"45":{"h":1035.1,"p":62.2},"46":{"h":1269.0,"p":76.2},"47":{"h":1317.8,"p":80.8},"48":{"h":1205.0,"p":74.4},"49":{"h":1182.7,"p":73.0},"50":{"h":1348.5,"p":83.2},"51":{"h":1376.9,"p":85.2},"52":{"h":1261.7,"p":80.1},"53":{"h":433.3,"p":85.0}};
+const MONTHS_FY = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
 
 // ============================================================
 // RUNTIME STATE
 // ============================================================
-let activeYear = 2024;
-let EMP = EMP_2024;
-let MONTHLY_TEAM = MONTHLY_TEAM_2024;
-let WEEKLY_TEAM = WEEKLY_TEAM_2024;
-let MONTHS = MONTHS_2024;
-let EMP_2025 = null;
-let MONTHLY_TEAM_2025 = {};
-let WEEKLY_TEAM_2025 = {};
+let activeFY = 'fy25'; // Default to FY 25-26
+let rawCSVText = ""; // Store raw text to re-parse when switching years
+let EMP = [];
+let MONTHLY_TEAM = {};
+let WEEKLY_TEAM = {};
 let teamSort = 'hours';
 let currentProfEmp = null;
 let profCharts = {};
@@ -421,11 +397,22 @@ function setStatus(msg,type){
 function clearStatus(){document.getElementById('status-bar').style.display='none';}
 
 // ============================================================
-// CSV PARSING — converts raw CSV text into EMP array
+// SMART CSV PARSING (Handles Headers on ANY Row)
 // ============================================================
-function parseCSV(text){
+function parseCSV(text, targetFY){
   const lines = text.split('\n').filter(l=>l.trim());
-  const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/"/g,''));
+  
+  // 1. SMART HEADER DETECTION: Find the row that actually has the column names
+  let headerRowIdx = 0;
+  for(let i=0; i<Math.min(10, lines.length); i++){
+      const lowerLine = lines[i].toLowerCase();
+      if(lowerLine.includes('faculty') || lowerLine.includes('date') || lowerLine.includes('hours')){
+          headerRowIdx = i;
+          break;
+      }
+  }
+
+  const headers = lines[headerRowIdx].split(',').map(h=>h.trim().toLowerCase().replace(/"/g,''));
 
   const colName = headers.findIndex(h=>h.includes('faculty'));
   const colDate = headers.findIndex(h=>h.includes('date'));
@@ -435,13 +422,13 @@ function parseCSV(text){
   const colHours= headers.findIndex(h=>h.includes('overall hours') || (h.includes('hours') && h.includes('worked')));
 
   if(colName<0||colDate<0){
-    throw new Error('Could not find required columns. Found: '+headers.slice(0,8).join(', '));
+    throw new Error('Could not find required columns. Please check your Google Sheet headers.');
   }
 
   const empMap = {};
   let parsed = 0, skipped = 0;
 
-  for(let i=1;i<lines.length;i++){
+  for(let i = headerRowIdx + 1; i < lines.length; i++){
     const cells = parseCSVLine(lines[i]);
     const name = (cells[colName]||'').trim();
     const dateStr = (cells[colDate]||'').trim();
@@ -449,7 +436,18 @@ function parseCSV(text){
 
     const date = new Date(dateStr);
     if(isNaN(date.getTime())) { skipped++; continue; }
-    if(date.getFullYear() !== 2025) continue;
+    
+    // 2. FINANCIAL YEAR FILTERING LOGIC
+    const y = date.getFullYear();
+    const m = date.getMonth(); // 0=Jan, 3=Apr, 11=Dec
+    
+    let rowFY = '';
+    // FY25: Apr 2025 to Mar 2026
+    if((y === 2025 && m >= 3) || (y === 2026 && m <= 2)) rowFY = 'fy25';
+    // FY26: Apr 2026 to Mar 2027
+    else if((y === 2026 && m >= 3) || (y === 2027 && m <= 2)) rowFY = 'fy26';
+    
+    if(rowFY !== targetFY) continue;
 
     const att   = (cells[colAtt]||'').trim();
     const week  = parseInt(cells[colWeek]||'0')||0;
@@ -484,13 +482,11 @@ function parseCSV(text){
   for(const [n,e] of Object.entries(empMap)){
     const avg_prod = e.prod_days>0 ? Math.round(e.prod_sum/e.prod_days*10)/10 : 0;
     const att_rate = e.days>0 ? Math.round(e.present/e.days*1000)/10 : 0;
-    // fix monthly/weekly p averages
     for(const m of Object.values(e.monthly)){m.p=m._pdays>0?Math.round(m._psum/m._pdays*10)/10:0;m.h=Math.round(m.h*10)/10;delete m._psum;delete m._pdays;}
     for(const w of Object.values(e.weekly)){w.p=w._pdays>0?Math.round(w._psum/w._pdays*10)/10:0;w.h=Math.round(w.h*10)/10;delete w._psum;delete w._pdays;}
     result.push({name:n,subject:e.subject,hours:Math.round(e.total_hours*10)/10,present:e.present,absent:e.absent,holiday:e.holiday,days:e.days,prod:avg_prod,att:att_rate,monthly:e.monthly,weekly:e.weekly});
   }
   result.sort((a,b)=>b.hours-a.hours);
-  console.log(`CSV parsed: ${parsed} rows, ${result.length} employees, ${skipped} skipped`);
   return result;
 }
 
@@ -516,7 +512,7 @@ function guessSubject(name){
   return null;
 }
 
-function buildTeamAggregates(empArr, months){
+function buildTeamAggregates(empArr){
   const mt={}, wt={};
   for(const e of empArr){
     for(const [m,d] of Object.entries(e.monthly)){
@@ -537,81 +533,65 @@ function buildTeamAggregates(empArr, months){
 }
 
 // ============================================================
-// FETCH 2025 DATA
+// FETCH DATA
 // ============================================================
-async function fetch2025(){
+async function fetchAndRenderData(){
   const overlay = document.getElementById('loading-overlay');
   overlay.classList.remove('hidden');
-  document.getElementById('loading-text').textContent = 'Fetching 2025 live data...';
-  document.getElementById('loading-sub').textContent = 'Connecting to Google Sheets';
   setStatus('Fetching live data from Google Sheets...','loading');
 
   try {
-    const res = await fetch(CSV_2025);
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const text = await res.text();
-    document.getElementById('loading-sub').textContent = 'Parsing '+text.split('\n').length+' rows...';
+    // Only fetch from the network once. If we have the text, reuse it when switching years.
+    if(!rawCSVText) {
+        const res = await fetch(CSV_URL);
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        rawCSVText = await res.text();
+    }
 
-    EMP_2025 = parseCSV(text);
-    if(EMP_2025.length===0) throw new Error('No 2025 data found. The sheet may be empty or use a different year.');
-
-    const {mt,wt} = buildTeamAggregates(EMP_2025, MONTHS_2025);
-    MONTHLY_TEAM_2025 = mt;
-    WEEKLY_TEAM_2025 = wt;
-
-    const now = new Date();
-    document.getElementById('last-updated').textContent = 'Updated '+now.toLocaleTimeString();
+    EMP = parseCSV(rawCSVText, activeFY);
+    
+    if(EMP.length === 0) {
+        setStatus('No data found for this Financial Year.', 'err');
+    } else {
+        const {mt,wt} = buildTeamAggregates(EMP);
+        MONTHLY_TEAM = mt;
+        WEEKLY_TEAM = wt;
+        
+        const now = new Date();
+        document.getElementById('last-updated').textContent = 'Updated '+now.toLocaleTimeString();
+        setStatus(`✓ Loaded ${EMP.length} members for ${activeFY.toUpperCase()}`, 'ok');
+        setTimeout(clearStatus,5000);
+    }
+    
     overlay.classList.add('hidden');
-    setStatus(`✓ 2025 data loaded — ${EMP_2025.length} members, ${EMP_2025.reduce((a,b)=>a+b.days,0).toLocaleString()} entries`, 'ok');
-    setTimeout(clearStatus,5000);
-    return true;
+    
+    // Refresh the UI
+    trendsBuilt=false; attBuilt=false;
+    destroyCharts(pageCharts);
+    backToGrid();
+    renderCurrentPage();
+
   } catch(err){
     overlay.classList.add('hidden');
-    setStatus('⚠ Could not load 2025 data: '+err.message+' — Showing 2024 data instead.','err');
-    return false;
+    setStatus('⚠ Error: '+err.message,'err');
   }
 }
 
 // ============================================================
 // YEAR SWITCH
 // ============================================================
-async function switchYear(yr){
-  if(yr===activeYear) return;
-
-  if(yr===2025 && !EMP_2025){
-    const ok = await fetch2025();
-    if(!ok){ return; }
-  }
-
-  activeYear = yr;
-  if(yr===2025){
-    EMP = EMP_2025;
-    MONTHLY_TEAM = MONTHLY_TEAM_2025;
-    WEEKLY_TEAM = WEEKLY_TEAM_2025;
-    MONTHS = Object.keys(MONTHLY_TEAM_2025).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
-    document.getElementById('btn-2025').classList.add('active');
-    document.getElementById('btn-2024').classList.remove('active');
-    document.getElementById('live-badge').style.display='inline-block';
-    document.getElementById('sidebar-sub').textContent = '2025 Live';
-  } else {
-    EMP = EMP_2024;
-    MONTHLY_TEAM = MONTHLY_TEAM_2024;
-    WEEKLY_TEAM = WEEKLY_TEAM_2024;
-    MONTHS = MONTHS_2024;
-    document.getElementById('btn-2024').classList.add('active');
-    document.getElementById('btn-2025').classList.remove('active');
-    document.getElementById('live-badge').style.display='none';
-    document.getElementById('last-updated').textContent='';
-    document.getElementById('sidebar-sub').textContent = '2024 Archive';
-  }
-  document.getElementById('sidebar-footer').textContent = yr===2025
-    ? `Live · ${EMP.length} members`
-    : 'Apr–Dec 2024 · 43 members';
-
-  trendsBuilt=false; attBuilt=false;
-  destroyCharts(pageCharts);
-  backToGrid();
-  renderCurrentPage();
+function switchYear(fy){
+  if(fy === activeFY) return;
+  activeFY = fy;
+  
+  document.getElementById('btn-fy25').classList.remove('active');
+  document.getElementById('btn-fy26').classList.remove('active');
+  document.getElementById('btn-'+fy).classList.add('active');
+  
+  const titleText = fy === 'fy25' ? 'Apr 2025 - Mar 2026' : 'Apr 2026 - Mar 2027';
+  document.getElementById('sidebar-sub').textContent = titleText;
+  
+  fetchAndRenderData();
 }
 
 // ============================================================
@@ -635,6 +615,12 @@ function goPage(id,el){
 
 function renderPage(id){
   destroyCharts(pageCharts);
+  
+  if(EMP.length === 0) {
+      document.getElementById('ov-metrics').innerHTML = '<div style="grid-column: span 4; text-align: center; padding: 40px;">No data recorded yet for this financial year.</div>';
+      return;
+  }
+  
   if(id==='overview') buildOverview();
   else if(id==='team'){filterTeamTable();}
   else if(id==='subjects') buildSubjectCards();
@@ -652,7 +638,7 @@ function buildOverview(){
   const totalA = EMP.reduce((a,b)=>a+b.absent,0);
   const totalDays = EMP.reduce((a,b)=>a+b.days,0);
   const attRate = totalDays>0?Math.round(totalP/totalDays*1000)/10:0;
-  const label = activeYear===2025 ? `Jan – ${MONTHS[MONTHS.length-1] || '?'} 2025` : 'Apr – Dec 2024';
+  const label = activeFY === 'fy25' ? 'FY 25-26' : 'FY 26-27';
 
   document.getElementById('ov-metrics').innerHTML = `
     <div class="metric-card blue"><div class="mc-icon blue">⏱️</div><div class="mc-label">Total Hours Logged</div><div class="mc-value">${Math.round(totalH).toLocaleString()}</div><div class="mc-hint">${label}</div></div>
@@ -683,7 +669,7 @@ function buildOverview(){
     <div class="bar-track"><div class="bar-fill" style="width:${Math.round(e.prod/maxP*100)}%;background:${prodColor(e.prod)};"></div></div></div>`).join('');
 
   // Efficiency line
-  const mLabels = Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
+  const mLabels = Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_FY.indexOf(a)-MONTHS_FY.indexOf(b));
   const mProd = mLabels.map(m=>MONTHLY_TEAM[m]?.p||0);
   pageCharts.effLine = new Chart(document.getElementById('efficiencyLine'),{type:'line',data:{labels:mLabels,datasets:[{label:'Avg Productivity %',data:mProd,borderColor:'#7C3AED',backgroundColor:'rgba(124,58,237,0.08)',fill:true,tension:0.4,pointBackgroundColor:'#7C3AED',pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'%',font:{size:11}}},x:{ticks:{font:{size:11}}}}}});
 }
@@ -781,7 +767,7 @@ function closeSubjectDetail(){document.getElementById('subject-cards').style.dis
 function buildTrends(){
   if(trendsBuilt) return;
   trendsBuilt=true;
-  const mLabels=Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
+  const mLabels=Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_FY.indexOf(a)-MONTHS_FY.indexOf(b));
   const mH=mLabels.map(m=>MONTHLY_TEAM[m]?.h||0);
   const mP=mLabels.map(m=>MONTHLY_TEAM[m]?.p||0);
   const wks=Object.keys(WEEKLY_TEAM).map(Number).sort((a,b)=>a-b);
@@ -795,7 +781,7 @@ function buildTrends(){
   document.getElementById('trend-metrics').innerHTML=`
     <div class="metric-card blue"><div class="mc-icon blue">📅</div><div class="mc-label">Best Month</div><div class="mc-value" style="font-size:20px;">${bestMonth||'—'}</div><div class="mc-hint up">${(Math.max(...mH)||0).toLocaleString()}h</div></div>
     <div class="metric-card green"><div class="mc-icon green">📈</div><div class="mc-label">Peak Week</div><div class="mc-value" style="font-size:20px;">Week ${bestWeek||'—'}</div><div class="mc-hint up">${(Math.max(...wH)||0).toLocaleString()}h</div></div>
-    <div class="metric-card orange"><div class="mc-icon orange">⏱️</div><div class="mc-label">Total Hours</div><div class="mc-value">${totalH.toLocaleString()}</div><div class="mc-hint">${activeYear} total</div></div>
+    <div class="metric-card orange"><div class="mc-icon orange">⏱️</div><div class="mc-label">Total Hours</div><div class="mc-value">${totalH.toLocaleString()}</div><div class="mc-hint">${activeFY.toUpperCase()} total</div></div>
     <div class="metric-card teal"><div class="mc-icon teal">⚡</div><div class="mc-label">Best Efficiency</div><div class="mc-value" style="font-size:20px;">Week ${bestEff||'—'}</div><div class="mc-hint up">${(Math.max(...wP)||0).toFixed(1)}% avg</div></div>`;
 
   pageCharts.mTrend = new Chart(document.getElementById('monthlyTrendChart'),{type:'bar',data:{labels:mLabels,datasets:[{label:'Total Hours',data:mH,backgroundColor:'#2563EB',borderRadius:6,barPercentage:0.6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{font:{size:11},callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v}},x:{grid:{display:false},ticks:{font:{size:11}}}}}});
@@ -806,7 +792,7 @@ function buildTrends(){
 function showTrend(mode,btn){
   document.querySelectorAll('.trend-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const mLabels=Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
+  const mLabels=Object.keys(MONTHLY_TEAM).sort((a,b)=>MONTHS_FY.indexOf(a)-MONTHS_FY.indexOf(b));
   if(mode==='hours'){
     pageCharts.mTrend.data.datasets=[{label:'Total Hours',data:mLabels.map(m=>MONTHLY_TEAM[m]?.h||0),backgroundColor:'#2563EB',borderRadius:6,barPercentage:0.6}];
     pageCharts.mTrend.options.scales.y.ticks.callback=v=>v>=1000?(v/1000).toFixed(1)+'k':v;
@@ -906,7 +892,7 @@ function openMemberProfile(name){
 
   document.getElementById('members-grid').style.display='none';
   document.getElementById('member-profile').style.display='block';
-  document.getElementById('prof-breadcrumb').innerHTML=`<span style="color:var(--text3);">Members</span> › <span style="color:${sc};font-weight:600;">${e.name}</span> <span style="color:var(--text3);margin-left:4px;">(${activeYear})</span>`;
+  document.getElementById('prof-breadcrumb').innerHTML=`<span style="color:var(--text3);">Members</span> › <span style="color:${sc};font-weight:600;">${e.name}</span> <span style="color:var(--text3);margin-left:4px;">(${activeFY.toUpperCase()})</span>`;
 
   const av=document.getElementById('prof-avatar');
   av.textContent=initials(e.name); av.style.background=bg; av.style.color=text;
@@ -948,7 +934,7 @@ function setProfChartType(tab,type,btn){
 }
 
 function buildProfMonthly(e,type){
-  const mLabels=Object.keys(e.monthly||{}).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
+  const mLabels=Object.keys(e.monthly||{}).sort((a,b)=>MONTHS_FY.indexOf(a)-MONTHS_FY.indexOf(b));
   const mh=mLabels.map(m=>e.monthly[m]?.h||0);
   const mp=mLabels.map(m=>e.monthly[m]?.p||0);
   const sc=subjColor(e.subject);
@@ -984,14 +970,14 @@ function buildProfWeekly(e,type){
     <div style="background:var(--green-l);border-radius:10px;padding:14px;"><div style="font-size:11px;color:${sc};font-weight:600;">🏆 Best Week (Hours)</div><div style="font-size:20px;font-weight:700;margin-top:4px;">Week ${bestHw}</div><div style="font-size:13px;color:var(--text2);">${Math.max(...wh).toFixed(1)}h</div></div>
     <div style="background:var(--purple-l);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--purple);font-weight:600;">⚡ Best Week (Productivity)</div><div style="font-size:20px;font-weight:700;margin-top:4px;">Week ${bestPw}</div><div style="font-size:13px;color:var(--text2);">${Math.max(...wp).toFixed(1)}%</div></div>
     <div style="background:var(--orange-l);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--orange);font-weight:600;">📊 Avg Weekly Hours</div><div style="font-size:20px;font-weight:700;margin-top:4px;">${avgWh}h</div><div style="font-size:13px;color:var(--text2);">${activeWh.length} active weeks</div></div>
-    <div style="background:var(--blue-l);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--blue);font-weight:600;">📅 Weeks Tracked</div><div style="font-size:20px;font-weight:700;margin-top:4px;">${wks.length}</div><div style="font-size:13px;color:var(--text2);">in ${activeYear}</div></div>`;
+    <div style="background:var(--blue-l);border-radius:10px;padding:14px;"><div style="font-size:11px;color:var(--blue);font-weight:600;">📅 Weeks Tracked</div><div style="font-size:20px;font-weight:700;margin-top:4px;">${wks.length}</div><div style="font-size:13px;color:var(--text2);">in ${activeFY.toUpperCase()}</div></div>`;
 }
 
 function buildProfAttendance(e){
   const total=e.present+e.absent+e.holiday||1;
   profCharts.attDonut=new Chart(document.getElementById('prof-att-donut'),{type:'pie',data:{labels:['Present','Absent','Holiday'],datasets:[{data:[e.present,e.absent,e.holiday],backgroundColor:['#059669','#EA580C','#D97706'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{display:false}}}});
   document.getElementById('prof-att-legend').innerHTML=[{l:'Present',v:e.present,c:'#059669'},{l:'Absent',v:e.absent,c:'#EA580C'},{l:'Holiday',v:e.holiday,c:'#D97706'}].map(x=>`<div class="legend-row"><div class="legend-dot" style="background:${x.c};width:10px;height:10px;border-radius:2px;"></div><span style="flex:1;">${x.l}</span><span style="font-weight:700;">${x.v}</span><span style="color:var(--text3);margin-left:6px;">${Math.round(x.v/total*100)}%</span></div>`).join('');
-  const mLabels=Object.keys(e.monthly||{}).sort((a,b)=>MONTHS_2025.indexOf(a)-MONTHS_2025.indexOf(b));
+  const mLabels=Object.keys(e.monthly||{}).sort((a,b)=>MONTHS_FY.indexOf(a)-MONTHS_FY.indexOf(b));
   const mh=mLabels.map(m=>e.monthly[m]?.h||0);
   const sc=subjColor(e.subject);
   profCharts.attMonthly=new Chart(document.getElementById('prof-att-monthly'),{type:'bar',data:{labels:mLabels,datasets:[{data:mh,backgroundColor:mh.map(h=>h>0?sc+'99':'#e2e8f0'),borderRadius:4,barPercentage:0.6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{font:{size:10}}},x:{ticks:{font:{size:10}}}}}});
@@ -1015,23 +1001,9 @@ function buildProfRadar(e){
 // ============================================================
 // INIT
 // ============================================================
-document.getElementById('sidebar-footer').textContent = 'Apr–Dec 2024 · 43 members';
-document.getElementById('sidebar-sub').textContent = '2024 Archive';
-buildOverview();
-buildTeamTable([...EMP].sort((a,b)=>b.hours-a.hours));
-buildSubjectCards();
-buildMembersGrid();
+// Start fetching immediately on page load
+fetchAndRenderData();
 
-// Auto-fetch 2025 in background after 1s
-setTimeout(async()=>{
-  setStatus('Checking for 2025 live data in background...','loading');
-  const ok = await fetch2025();
-  if(ok){
-    setStatus(`✓ 2025 data ready (${EMP_2025.length} members) — click "2025 Live" to switch`,'ok');
-    setTimeout(clearStatus,6000);
-  }
-}, 1000);
 </script>
 </body>
 </html>
-
